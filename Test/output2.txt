@@ -1,6 +1,5 @@
 ---------------------------
 Test 2
-Student with ID 1003 modified successfully.
 Best Student:
 Name: Jack, ID: 1036
 Midterm Average: 82.6358

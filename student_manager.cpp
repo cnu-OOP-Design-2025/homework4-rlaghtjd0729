@@ -39,8 +39,7 @@ void StudentManager::deleteStudent(int id) {
     }
     
     num_of_students--;
-    std::cout << "Student with ID " << id << " deleted successfully." << std::endl;
-}
+    }
 
 // 동일한 ID를 가진 학생의 정보 수정
 void StudentManager::modifyStudent(const Student& student) {
@@ -50,8 +49,7 @@ void StudentManager::modifyStudent(const Student& student) {
         return;
     }
     students[index] = student;
-    std::cout << "Student with ID " << student.getID() << " modified successfully." << std::endl;
-}
+    }
 
 // 해당 ID를 가진 학생의 배열 인덱스 반환
 int StudentManager::findStudentByID(int id) const {
