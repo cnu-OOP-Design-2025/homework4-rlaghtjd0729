@@ -1,125 +1,132 @@
 #include "student_manager.h"
 #include "student.h"
 #include <iostream>
+#include <cstring> 
 
-/* StudentManager */
-// 정적 멤버 변수 초기화 (클래스 밖에서 한 번 정의 필요)
+// StudentManager 클래스 구현
+
+// 정적 멤버 변수 정의
 int StudentManager::last_student_id = 1000;
+
+// 생성자: 헤더에 정의되어 있으므로 삭제됨
+// StudentManager::StudentManager() {}
 
 // 학생 추가
 void StudentManager::addStudent(char const* name, float midterm, float final) {
-    if (count_ >= MAX_STUDENTS) {
+    if (num_of_students >= MAX_STUDENTS) {
         std::cerr << "Error: Maximum number of students reached." << std::endl;
         return;
     }
 
     int id = ++last_student_id;
-    // 배열의 다음 위치에 Student 객체 생성자를 직접 호출하여 추가
-    students_[count_] = Student(name, id, midterm, final);
-    count_++;
+    
+    // 학생 객체 배열에 추가
+    students[num_of_students] = Student(name, id, midterm, final);
+    num_of_students++;
 }
 
-// 해당 ID를 가진 학생을 찾아 배열에서 삭제 및 재정렬
+// 해당 ID를 가진 학생을 찾아 삭제 및 재정렬
 void StudentManager::deleteStudent(int id) {
     int index = findStudentByID(id);
     if (index == -1) {
-        std::cout << "Student with ID " << id << " not found." << std::endl;
+        std::cerr << "Error: Student with ID " << id << " not found for deletion." << std::endl;
         return;
     }
 
-    // 삭제: 해당 인덱스부터 뒤의 모든 요소를 한 칸씩 앞으로 당김
-    for (int i = index; i < count_ - 1; ++i) {
-        students_[i] = students_[i + 1];
+    // 배열 재정렬
+    for (int i = index; i < num_of_students - 1; ++i) {
+        students[i] = students[i + 1];
     }
     
-    // 학생 수 감소
-    count_--;
-    std::cout << "Student with ID " << id << " deleted." << std::endl;
+    num_of_students--;
+    std::cout << "Student with ID " << id << " deleted successfully." << std::endl;
 }
 
-// 동일한 ID를 가진 학생을 찾아 정보 수정
+// 동일한 ID를 가진 학생의 정보 수정
 void StudentManager::modifyStudent(const Student& student) {
     int index = findStudentByID(student.getID());
     if (index == -1) {
-        std::cout << "Student with ID " << student.getID() << " not found for modification." << std::endl;
+        std::cerr << "Error: Student with ID " << student.getID() << " not found for modification." << std::endl;
         return;
     }
-    // 복사 대입 연산자를 사용하여 정보 수정
-    students_[index] = student;
+    students[index] = student;
+    std::cout << "Student with ID " << student.getID() << " modified successfully." << std::endl;
 }
 
 // 해당 ID를 가진 학생의 배열 인덱스 반환
 int StudentManager::findStudentByID(int id) const {
-    for (int i = 0; i < count_; ++i) {
-        if (students_[i].getID() == id) {
+    for (int i = 0; i < num_of_students; ++i) {
+        if (students[i].getID() == id) {
             return i;
         }
     }
-    return -1; // 찾지 못함
+    return -1;
 }
 
-// 중간고사 최고 점수 학생의 인덱스 반환
+// 중간고사 최고 점수 학생의 ID 반환
 int StudentManager::findBestStudentInMidterm() const {
-    if (count_ == 0) return -1;
+    if (num_of_students == 0) return -1;
     int best_index = 0;
-    for (int i = 1; i < count_; ++i) {
-        if (students_[i].getRecord().getMidterm() > students_[best_index].getRecord().getMidterm()) {
+    for (int i = 1; i < num_of_students; ++i) {
+        if (students[i].getRecord().getMidterm() > students[best_index].getRecord().getMidterm()) {
             best_index = i;
         }
     }
-    return best_index;
+    return students[best_index].getID();
 }
 
-// 기말고사 최고 점수 학생의 인덱스 반환
+// 기말고사 최고 점수 학생의 ID 반환
 int StudentManager::findBestStudentInFinal() const {
-    if (count_ == 0) return -1;
+    if (num_of_students == 0) return -1;
     int best_index = 0;
-    for (int i = 1; i < count_; ++i) {
-        if (students_[i].getRecord().getFinal() > students_[best_index].getRecord().getFinal()) {
+    for (int i = 1; i < num_of_students; ++i) {
+        if (students[i].getRecord().getFinal() > students[best_index].getRecord().getFinal()) {
             best_index = i;
         }
     }
-    return best_index;
+    return students[best_index].getID();
 }
 
-// 총점 최고 점수 학생의 인덱스 반환
+// 총점 최고 점수 학생의 ID 반환
 int StudentManager::findBestStudent() const {
-    if (count_ == 0) return -1;
+    if (num_of_students == 0) return -1;
     int best_index = 0;
-    for (int i = 1; i < count_; ++i) {
-        if (students_[i].getRecord().getTotal() > students_[best_index].getRecord().getTotal()) {
+    float max_total = students[0].getRecord().getTotal();
+    for (int i = 1; i < num_of_students; ++i) {
+        if (students[i].getRecord().getTotal() > max_total) {
+            max_total = students[i].getRecord().getTotal();
             best_index = i;
         }
     }
-    return best_index;
+    return students[best_index].getID();
 }
 
 // 중간고사 평균 점수 계산
 float StudentManager::getMidtermAverage() const {
-    if (count_ == 0) return 0.0f;
+    if (num_of_students == 0) return 0.0f;
     float sum = 0.0f;
-    for (int i = 0; i < count_; ++i) {
-        sum += students_[i].getRecord().getMidterm();
+    for (int i = 0; i < num_of_students; ++i) {
+        sum += students[i].getRecord().getMidterm();
     }
-    return sum / count_;
+    return sum / num_of_students;
 }
 
 // 기말고사 평균 점수 계산
 float StudentManager::getFinalAverage() const {
-    if (count_ == 0) return 0.0f;
+    if (num_of_students == 0) return 0.0f;
     float sum = 0.0f;
-    for (int i = 0; i < count_; ++i) {
-        sum += students_[i].getRecord().getFinal();
+    for (int i = 0; i < num_of_students; ++i) {
+        sum += students[i].getRecord().getFinal();
     }
-    return sum / count_;
+    return sum / num_of_students;
 }
 
 // 총점 평균 점수 계산
 float StudentManager::getTotalAverage() const {
-    if (count_ == 0) return 0.0f;
+    if (num_of_students == 0) return 0.0f;
     float sum = 0.0f;
-    for (int i = 0; i < count_; ++i) {
-        sum += students_[i].getRecord().getTotal();
+    for (int i = 0; i < num_of_students; ++i) {
+        sum += students[i].getRecord().getTotal();
     }
-    return sum / count_;
+    return sum / num_of_students;
 }

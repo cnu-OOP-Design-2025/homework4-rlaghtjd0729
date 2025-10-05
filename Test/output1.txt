@@ -1,0 +1,58 @@
+---------------------------
+Test 1
+Best Student:
+Name: Jack, ID: 1036
+Midterm Average: 82.318
+Final Average: 78.908
+Total Average: 161.226
+Student List:
+Name: Alice, ID: 1001
+Name: Bob, ID: 1002
+Name: Charlie, ID: 1003
+Name: David, ID: 1004
+Name: Eva, ID: 1005
+Name: Frank, ID: 1006
+Name: Grace, ID: 1007
+Name: Hannah, ID: 1008
+Name: Ian, ID: 1009
+Name: Jane, ID: 1010
+Name: Kevin, ID: 1011
+Name: Laura, ID: 1012
+Name: Mike, ID: 1013
+Name: Nina, ID: 1014
+Name: Oscar, ID: 1015
+Name: Paula, ID: 1016
+Name: Quinn, ID: 1017
+Name: Rachel, ID: 1018
+Name: Steve, ID: 1019
+Name: Tina, ID: 1020
+Name: Uma, ID: 1021
+Name: Victor, ID: 1022
+Name: Wendy, ID: 1023
+Name: Xander, ID: 1024
+Name: Yvonne, ID: 1025
+Name: Zack, ID: 1026
+Name: Amber, ID: 1027
+Name: Brian, ID: 1028
+Name: Cathy, ID: 1029
+Name: Derek, ID: 1030
+Name: Elena, ID: 1031
+Name: Fred, ID: 1032
+Name: Gina, ID: 1033
+Name: Harry, ID: 1034
+Name: Isla, ID: 1035
+Name: Jack, ID: 1036
+Name: Kara, ID: 1037
+Name: Liam, ID: 1038
+Name: Mona, ID: 1039
+Name: Noah, ID: 1040
+Name: Olivia, ID: 1041
+Name: Peter, ID: 1042
+Name: Queen, ID: 1043
+Name: Ron, ID: 1044
+Name: Sara, ID: 1045
+Name: Tom, ID: 1046
+Name: Ursula, ID: 1047
+Name: Vince, ID: 1048
+Name: Will, ID: 1049
+Name: Zoe, ID: 1050
